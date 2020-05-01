@@ -1,0 +1,17 @@
+{
+  "name": "teste",
+  "version": "1.0.0",
+  "description": "Who are Spy?",
+  "main": "main.js",
+  "scripts": {
+    "start": "node ./engine/main.js"
+  },
+  "keywords": [
+    "Spy"
+  ],
+  "author": "Lucas Mateus Fernande",
+  "license": "ISC",
+  "dependencies": {
+    "sqlite3": "^4.1.1"
+  }
+}

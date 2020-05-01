@@ -1,0 +1,48 @@
+CREATE TABLE locale (
+    id_local INTEGER PRIMARY KEY,
+   	local TEXT NOT NULL UNIQUE
+);
+
+CREATE TABLE user (
+    id_user INTEGER PRIMARY KEY,
+    ip TEXT NOT NULL UNIQUE,
+    name TEXT NOT NULL UNIQUE,
+);
+
+CREATE TABLE room (
+    id_room INTEGER PRIMARY KEY,
+    alias TEXT NOT NULL UNIQUE,
+    pwd TEXT
+);
+
+CREATE TABLE sessionsPlayers(
+    id_user INTEGER,
+    id_room INTEGER,
+    qtdSpy INTEGER NOT NULL,
+    PRIMARY KEY (id_user, id_room),
+    FOREIGN KEY (id_user) 
+       REFERENCES user (id_user) 
+          ON DELETE CASCADE 
+          ON UPDATE NO ACTION,
+    FOREIGN KEY (id_room) 
+       REFERENCES room (id_room) 
+          ON DELETE CASCADE 
+          ON UPDATE NO ACTION
+);
+
+
+CREATE TABLE sessionsLocale(
+    id_room INTEGER,
+    id_locale INTEGER,
+    qtdOccurs INTEGER NOT NULL,
+    PRIMARY KEY (id_room, id_locale),
+    FOREIGN KEY (id_room) 
+       REFERENCES room (id_room) 
+          ON DELETE CASCADE 
+          ON UPDATE NO ACTION,
+    FOREIGN KEY (id_locale) 
+       REFERENCES locale (id_locale) 
+          ON DELETE CASCADE 
+          ON UPDATE NO ACTION
+);
+
