@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt">   
-<header>
+<html>
     <title>Referencia Cruzada</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -39,23 +38,18 @@
             height: 1em;
         }
     </style>
-</header>
 <body>
     <div class="bgimg w3-display-container w3-animate-opacity w3-text-white">
-        <div class="w3-display-topleft w3-padding-large w3-xlarge">
-            ${Route}
-        </div>
         <div class="w3-display-middle">
-            <div class="w3-large w3-center">
-                <p class="w3-center">
-                    ${MensagemDeErro}
-                </p>
-            </div>
-        </div>
-        <div class="w3-display-bottomleft w3-padding-large">
-            <a href='index'>Voltar para Pagina Inicial</a>
-            <br>
-            <a href='${Link_Texto_Route}'>Voltar para ${Link_Texto_Route} </a>
+            <form class="w3-large w3-center" action="registerLocale" method="POST">
+                <input id="name" name="room" class="w3-animate-top" type="text" placeholder="Nome da Sala" >
+                <br>
+                <input id="name" name="pwd" class="w3-animate-top" type="text" placeholder="Senha" >
+                <br>
+                <input id="name" name="locale" class="w3-animate-top" type="text" placeholder="Local" >
+                <br>
+                <input id="ok" class="w3-large w3-center" type="submit" value="entrar" >
+            </form>
         </div>
     </div>
 </body>

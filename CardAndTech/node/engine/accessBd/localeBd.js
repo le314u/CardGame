@@ -22,8 +22,7 @@ module.exports = class Conf{
         CREATE TABLE ${TABLE.nameTable} (
             ${TABLE.id} INTEGER PRIMARY KEY,
             ${TABLE.local} TEXT NOT NULL UNIQUE
-        );
-        `)
+        );`)
     }
     addLocale(locale){
         return new Promise( (resolve, reject)=>{
@@ -57,6 +56,20 @@ module.exports = class Conf{
                     reject(false);
                 } else {
                     resolve(inst[TABLE.id]);
+            }})
+            .catch(reject);
+        })
+    }
+    checkLocaleById(id){
+        //Retorna o id de acordo com o nome
+        return new Promise( (resolve, reject)=>{
+            let strCode = `SELECT ${TABLE.local} FROM ${TABLE.nameTable} WHERE ${TABLE.id} = ${id};`
+            this.dbManager.searchDb(this.table, strCode)
+            .then((inst)=>{
+                if(inst === undefined){
+                    reject(false);
+                } else {
+                    resolve(inst[TABLE.local]);
             }})
             .catch(reject);
         })

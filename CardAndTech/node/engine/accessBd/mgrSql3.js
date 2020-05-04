@@ -1,7 +1,7 @@
 const path = require('path');
 const sqlite3 = require("sqlite3");
 const dirDbs = __dirname+'/../../db/'
-
+debug = false
 module.exports = class Db{
     constructor(){};
     openDb(name){
@@ -26,9 +26,10 @@ module.exports = class Db{
             });
         });
     };
-    comandDb(dataBase, code){
+    comandDb(dataBase, strCode){
+        if(debug){console.log(strCode)}
         return new Promise((resolve, reject)=>{
-            return dataBase.run(code,(err) => {
+            return dataBase.run(strCode,(err) => {
                 //console.log(code)
                 if (err) {
                     //console.error('Erro comando:'+err.message);
@@ -39,6 +40,7 @@ module.exports = class Db{
         });
     };
     searchDb(dataBase, strCode, callBack){
+        if(debug){console.log(strCode)}
         return new Promise((resolve, reject)=>{
             return dataBase.get(strCode,(err, instRow) => {
                 if (err) {
@@ -50,6 +52,7 @@ module.exports = class Db{
         });
     };
     searchies(dataBase, strCode, callBack){
+        if(debug){console.log(strCode)}
         return new Promise((resolve, reject)=>{
             dataBase.all(strCode,(err, instRows) => {
                 if (err) {

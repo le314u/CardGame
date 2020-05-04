@@ -75,10 +75,10 @@ module.exports = class RouteHash{
         return new Promise( (resolve, __)=>{
             this.gAction.getAction(req, args)
             .then((arg)=>{
-                let pageError = this.error.creatMsg(arg,'leaveRoom')
+                let pageError = this.error.creatMsg(arg,'getAction')
                 resolve(pageError)
             }).catch((arg)=>{
-                let pageError = this.error.creatMsg(arg,'leaveRoom')
+                let pageError = this.error.creatMsg(arg,'getAction')
                 resolve(pageError)
             })
         });

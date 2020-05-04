@@ -7,7 +7,7 @@ const TABLE1 = {}; // Jogadores
 TABLE1.nameTable = 'sessionsPlayers';
 TABLE1.id1 = 'id_user';
 TABLE1.id2 = 'id_room';
-TABLE1.qtd = 'qtdSpy';
+TABLE1.action = 'action';
 TABLE1.ref1 = 'user'
 TABLE1.ref2 = 'room'
 Object.freeze(TABLE1)
@@ -42,7 +42,7 @@ module.exports = class Conf{
         CREATE TABLE ${TABLE1.nameTable}(
             ${TABLE1.id1} INTEGER,
             ${TABLE1.id2} INTEGER,
-            ${TABLE1.qtd} INTEGER NOT NULL,
+            ${TABLE1.action} TEXT NOT NULL,
             PRIMARY KEY (${TABLE1.id1}, ${TABLE1.id2}),
             FOREIGN KEY (${TABLE1.id1}) 
             REFERENCES ${TABLE1.ref1} (${TABLE1.id1}) 
@@ -88,7 +88,7 @@ module.exports = class Conf{
     };
     addPlayerRoom(idPlayer, idRoom){
         return new Promise( (resolve, reject)=>{
-            let strCode = `INSERT INTO ${TABLE1.nameTable} ( ${TABLE1.id1}, ${TABLE1.id2}, ${TABLE1.qtd}) VALUES( ${idPlayer}, ${idRoom}, 0 );`
+            let strCode = `INSERT INTO ${TABLE1.nameTable} ( ${TABLE1.id1}, ${TABLE1.id2}, ${TABLE1.action}) VALUES( ${idPlayer}, ${idRoom}, "Not Define" );`
             this.dbManager.comandDb(this.table, strCode)
             .then(resolve)
             .catch(reject)
@@ -107,14 +107,74 @@ module.exports = class Conf{
         return new Promise( (resolve, reject)=>{
             let strCode = `SELECT * FROM ${TABLE1.nameTable} WHERE ${TABLE1.id2} = ${idRoom} ;`
             this.dbManager.searchies(this.table, strCode)
-            .then(console.log)
-            .catch(console.log)
+            .then(resolve)
+            .catch(reject)
         })
     };
+    totalPlayersRoom(idRoom){
+        return new Promise( (resolve, reject)=>{
+            let strCode = `SELECT ${TABLE1.id1} FROM ${TABLE1.nameTable} WHERE ${TABLE1.id2} = ${idRoom} ;`
+            this.dbManager.searchies(this.table, strCode)
+            .then((rows)=>{
+                resolve(rows.length);
+            })
+            .catch(reject)
+        })
+    };
+    totalLocalesRoom(idRoom){
+        return new Promise( (resolve, reject)=>{
+            let strCode = `SELECT ${TABLE2.id2} FROM ${TABLE2.nameTable} WHERE ${TABLE1.id2} = ${idRoom} ;`
+            this.dbManager.searchies(this.table, strCode)
+            .then((rows)=>{
+                resolve(rows.length);
+            })
+            .catch(reject)
+        })
+    };
+    setAction(idRoom, action){
+        return new Promise( (resolve, reject)=>{
+            let strCode = `UPDATE ${TABLE1.nameTable} SET ${TABLE1.action} = "${action}"  WHERE ${TABLE1.id2} = ${idRoom} ;`
+            this.dbManager.comandDb(this.table, strCode)
+            .then(resolve)
+            .catch(reject)
+        })
+    };
+    setSpy(idRoom, idPlayer){
+        return new Promise( (resolve, reject)=>{
+            let strCode = `UPDATE ${TABLE1.nameTable} SET ${TABLE1.action} = "0"  WHERE ${TABLE1.id2} = ${idRoom} AND ${TABLE1.id1} = ${idPlayer} ;`
+            this.dbManager.comandDb(this.table, strCode)
+            .then(resolve)
+            .catch(reject)
+        })
+    };
+    getAction(idRoom, idPlayer){
+        return new Promise( (resolve, reject)=>{
+            let strCode = `SELECT ${TABLE1.action} FROM ${TABLE1.nameTable} WHERE ${TABLE1.id1} = ${idPlayer} AND ${TABLE1.id2} = ${idRoom} ;`
+            this.dbManager.searchDb (this.table, strCode)
+            .then(resolve)
+            .catch(reject)
+        })
+    };
+    getLocalesRoom(idRoom){
+        return new Promise( (resolve, reject)=>{
+            let strCode = `SELECT ${TABLE2.id2} FROM ${TABLE2.nameTable} WHERE ${TABLE2.id1} = ${idRoom} ;`
+            this.dbManager.searchies (this.table, strCode)
+            .then(resolve)
+            .catch(reject)
+        })
+    };
+
     
-    addLocale(room, locale){}
+    addLocale(idRoom, idLocale){
+        return new Promise( (resolve, reject)=>{
+            let strCode = `INSERT INTO ${TABLE2.nameTable} ( ${TABLE2.id1}, ${TABLE2.id2}, ${TABLE2.qtd}) VALUES( ${idRoom}, ${idLocale}, 0);`
+            this.dbManager.comandDb(this.table, strCode)
+            .then(resolve)
+            .catch(reject)
+        })
+    }
+
     rmLocale(room, locale){}
-    selectLocales(){}
     initGame(){}
     nextGame(){}
     enterRoom(player, room){}

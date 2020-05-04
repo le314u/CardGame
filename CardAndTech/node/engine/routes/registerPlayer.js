@@ -18,7 +18,6 @@ module.exports = class registerPlayer{
             bdPlayer.addPlayer(ip(req), args.name)
             .then((arg)=>{
                 if(arg == false){
-                    console.log("passou aki ?")
                     reject("Falha ao registrar Player!")
                 } else {
                     resolve(arg)
