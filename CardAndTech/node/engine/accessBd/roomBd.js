@@ -15,7 +15,7 @@ module.exports = class Room{
         this.initPromise = this.initDb().then(()=>{
             this.init = true;
         }).catch(()=>{
-            console.log("Tabela room ja existente ")
+            //console.log("Tabela room ja existente ")
         });
     };
     initDb(){

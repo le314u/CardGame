@@ -31,10 +31,10 @@ module.exports = class Conf{
             this.initDb2().then(()=>{
                 this.init = true;
             }).catch(()=>{
-                console.log("Tabela conf ja existente ")
+                //console.log("Tabela conf ja existente ")
             });
         }).catch(()=>{
-            console.log("Tabela conf ja existente ")
+            //console.log("Tabela conf ja existente ")
         });
     };
     initDb1(){

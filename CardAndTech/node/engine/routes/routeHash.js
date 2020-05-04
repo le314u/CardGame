@@ -3,21 +3,24 @@ const registerRoomR = require('./registerRoom');
 const enterRoomR = require('./enterRoom');
 const leaveRoomR = require('./leaveRoom');
 const gActionR = require('./getAction');
+const rLocaleR = require('./registerLocale');
+const resetR = require('./reset');
 const loadPageR = require('./loadPage')
 const erroR = require('./error')
 
-// const loadPage = new loadPageR()
 // const registerPlayer = new registerPlayerR()
         
 
 module.exports = class RouteHash{
     constructor(){
-        this.loadPage = new loadPageR()
         this.rPlayer = new registerPlayerR()
         this.rRoom = new registerRoomR()
         this.eRoom = new enterRoomR()
         this.lRoom = new leaveRoomR()
         this.gAction = new gActionR()
+        this.rLocale = new rLocaleR()
+        this.resetActions = new resetR()
+        this.loadPage = new loadPageR()
         this.error = new erroR()
         
     };
@@ -70,7 +73,6 @@ module.exports = class RouteHash{
             })
         });
     };
-
     getAction(req, args){
         return new Promise( (resolve, __)=>{
             this.gAction.getAction(req, args)
@@ -79,6 +81,30 @@ module.exports = class RouteHash{
                 resolve(pageError)
             }).catch((arg)=>{
                 let pageError = this.error.creatMsg(arg,'getAction')
+                resolve(pageError)
+            })
+        });
+    };
+    registerLocale(req, args){
+        return new Promise( (resolve, __)=>{
+            this.rLocale.registerLocale(req, args)
+            .then((arg)=>{
+                let pageError = this.error.creatMsg(arg,'registerLocale')
+                resolve(pageError)
+            }).catch((arg)=>{
+                let pageError = this.error.creatMsg(arg,'registerLocale')
+                resolve(pageError)
+            })
+        });
+    };
+    reset(req, args){
+        return new Promise( (resolve, __)=>{
+            this.resetActions.reset(req, args)
+            .then((arg)=>{
+                let pageError = this.error.creatMsg(arg,'reset')
+                resolve(pageError)
+            }).catch((arg)=>{
+                let pageError = this.error.creatMsg(arg,'reset')
                 resolve(pageError)
             })
         });

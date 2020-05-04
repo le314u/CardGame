@@ -15,7 +15,7 @@ module.exports = class Player{
         this.initPromise = this.initDb().then(()=>{
             this.init = true;
         }).catch(()=>{
-            console.log("Tabela player ja existente ")
+            //console.log("Tabela player ja existente ")
         });
         
     };

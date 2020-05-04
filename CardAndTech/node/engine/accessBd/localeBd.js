@@ -14,7 +14,7 @@ module.exports = class Conf{
         this.initPromise = this.initDb().then(()=>{
             this.init = true;
         }).catch(()=>{
-            console.log("Tabela locale ja existente ")
+            //console.log("Tabela locale ja existente ")
         });
     };
     initDb(){

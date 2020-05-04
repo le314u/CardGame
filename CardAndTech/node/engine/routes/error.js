@@ -24,15 +24,15 @@ module.exports= class Error{
     }
     
     replaceRoute(newData, route){
-        return newData.replace('${Route}', route)
+        return newData.replace(/\${Route}/g, route)
     }
 
     replaceLink(newData, link){
-        return newData.replace('${Link_Texto_Route}', link)
+        return newData.replace(/\${Link_Texto_Route}/g, link)
     }
 
     replaceMsg(newData, msg){
-        return newData.replace('${MensagemDeErro}', msg)
+        return newData.replace(/\${MensagemDeErro}/g, msg)
     }
 
 }
